@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 /**
  * 
@@ -25,7 +26,8 @@ public class Avis
 	}
 	
 	/**
-	 * costruttore di coppia della classe Donatore
+	 * erve per acquisire il numero di elementi
+	 * @return elementi
 	 */
 	
 	public int getElementi()
@@ -35,6 +37,9 @@ public class Avis
 	
 	/**
 	 * serve per creare un Nodo che contiene un donatore e il reference al Nodo successivo
+	 * @param donatore
+	 * @param link
+	 * @return
 	 */
 	
 	private Nodo creaNodo(Donatore donatore, Nodo link)
@@ -46,6 +51,9 @@ public class Avis
 	
 	/**
 	 * serve per far puntare il reference ad una posizione stabilita dall' utente
+	 * @param posizione
+	 * @return
+	 * @throws AvisEccexption
 	 */
 	
 	private Nodo getLinkPosizione(int posizione) throws AvisEccexption
@@ -83,6 +91,7 @@ public class Avis
 	
 	/**
 	 * serve per inserire nella lista un donatore
+	 * @param donatore
 	 */
 	
 	public void push(Donatore donatore)
@@ -94,6 +103,8 @@ public class Avis
 	
 	/**
 	 * serve per estrarre nella lista un donatore
+	 * @return
+	 * @throws AvisEccexption
 	 */
 	
 	public Donatore pop() throws AvisEccexption
@@ -109,6 +120,7 @@ public class Avis
 	
 	/**
 	 * serve per inserire in testa alla lista un donatore
+	 * @param donatore
 	 */
 	
 	public void inserisciInTesta(Donatore donatore)
@@ -120,6 +132,8 @@ public class Avis
 	
 	/**
 	 * serve per inserire in coda alla lista un donatore
+	 * @param donatore
+	 * @throws AvisEccexption
 	 */
 	
 	public void InserisciInCoda(Donatore donatore) throws AvisEccexption 
@@ -137,6 +151,7 @@ public class Avis
 	
 	/**
 	 * serve per eliminare in testa alla lista un donatore
+	 * @throws AvisEccexption
 	 */
 
 	public void eliminaInTesta() throws AvisEccexption
@@ -149,6 +164,7 @@ public class Avis
 	
 	/**
 	 * serve per eliminare in coda alla lista un donatore
+	 * @throws AvisEccexption
 	 */
 	
 	public void eliminaInCoda() throws AvisEccexption
@@ -168,6 +184,10 @@ public class Avis
 	
 	/**
 	 * serve per eliminare un donatore della lista con il numero di tessera inserita dall utente
+	 * @param tessera
+	 * @param writer
+	 * @throws AvisEccexption
+	 * @throws IOException
 	 */
 	
 	public void eliminaDonatoreConTessera(int tessera,BufferedWriter writer) throws AvisEccexption, IOException
@@ -193,6 +213,9 @@ public class Avis
 	
 	/**
 	 * serve per inserire un donatore in una posizione scelta dall utente
+	 * @param donatore
+	 * @param posizione
+	 * @throws AvisEccexption
 	 */
 	
 	void inserisciInPosizione(Donatore donatore, int posizione) throws AvisEccexption 
@@ -217,6 +240,10 @@ public class Avis
 	
 	/**
 	 * serve per eliminare un donatore in una posizione scelta dall utente e scrivere i dati del donatore in un file di testo
+	 * @param posizione
+	 * @param writer
+	 * @throws AvisEccexption
+	 * @throws IOException
 	 */
 	
 	public void eliminaInPosizioneWriter(int posizione, BufferedWriter writer) throws AvisEccexption, IOException 
@@ -248,6 +275,8 @@ public class Avis
 
 	/**
 	 * serve per eliminare un donatore in una posizione scelta dall utente
+	 * @param posizione
+	 * @throws AvisEccexption
 	 */
 	
 	public void eliminaInPosizione(int posizione) throws AvisEccexption
@@ -277,6 +306,10 @@ public class Avis
 	
 	/**
 	 * serve per effettuare una donazione da parte di un donatore
+	 * @param tessera
+	 * @param writer
+	 * @throws AvisEccexption
+	 * @throws IOException
 	 */
 	
 	public void donazioneDelDonatore (int tessera, BufferedWriter writer) throws AvisEccexption, IOException
@@ -304,7 +337,14 @@ public class Avis
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param posizione1
+	 * @param posizione2
+	 * @throws AvisEccexption
+	 * @throws IOException
+	 * serve per cambiare la posizione di due nodi all' interno della lista
+	 */
 	
 	private void scambia(int posizione1, int posizione2) throws AvisEccexption, IOException
 	{
@@ -315,6 +355,12 @@ public class Avis
 		inserisciInPosizione(q.getInfo(), posizione1);
 		inserisciInPosizione(p.getInfo(), posizione2);
 	}
+	
+	/**
+	 * @throws AvisEccexption
+	 * @throws IOException
+	 * riordina la lista in ordine alfabetico
+	 */
 	
 	public void visualizzaAlfabetico() throws AvisEccexption, IOException
 	{
@@ -337,8 +383,14 @@ public class Avis
 			posizioneA++;
 		}
 	}
+	
+	/**
+	 * @throws AvisEccexption
+	 * @throws IOException
+	 * riordina i nodi della lista in ordine di anzianità: dal più vecchio al più giovane
+	 */
 
-	public void visualizzaaPerAnzianità() throws AvisEccexption, IOException
+	public void visualizzaPerAnzianità() throws AvisEccexption, IOException
 	{
 		int posizioneA=1;
 		int posizioneB=1;
@@ -350,9 +402,10 @@ public class Avis
 			while (posizioneB<=elementi)
 			{
 				Nodo b=getLinkPosizione(posizioneB);
-				//if ((a.getInfo().getDataDiNascita().compareToIgnoreCase((b.getInfo().getDataDiNascita()))>0))
+				if (a.getInfo().getDataDiNascita().isAfter(b.getInfo().getDataDiNascita()))
 				{
 					scambia(posizioneA,posizioneB);
+					a=getLinkPosizione(posizioneA);
 				}
 				posizioneB++;
 			}
@@ -362,6 +415,7 @@ public class Avis
 	
 	/**
 	 * serve visualizzare tutti i dati di un donatore 
+	 * @throws AvisEccexption
 	 */
 	
 	public void stampaAvis() throws AvisEccexption
@@ -377,6 +431,8 @@ public class Avis
 	
 	/**
 	 * serve per visualizzare tutti i donatori che hanno fatto delle donazioni superiori a 10
+	 * @param donazioni
+	 * @throws AvisEccexption
 	 */
 	
 	public void visualizzaDonazioniSuperioriA(int donazioni) throws AvisEccexption
@@ -390,6 +446,24 @@ public class Avis
 			posizione++;
 		}
 		
+	}
+	
+	/**
+	 * @param writer
+	 * @throws AvisEccexption
+	 * @throws IOException
+	 * questa classe serve per fare la serializzazione dei donatori, salva tutti i doantori su un file
+	 */
+	
+	public void serializza(ObjectOutputStream writer) throws AvisEccexption, IOException
+	{
+		int posizione=1;
+		while (posizione<=elementi)
+		{
+			writer.writeObject(getLinkPosizione(posizione));
+			writer.flush();
+			posizione++;
+		}
 	}
 	
 }

@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,12 +35,16 @@ public class MainClass {
 		}
 
 		LocalDate data1= LocalDate.of(1971, 5 , 12);
+		LocalDate data2= LocalDate.of(1981, 4 , 12);
+		LocalDate data3= LocalDate.of(1991, 3 , 12);
+		LocalDate data4= LocalDate.of(1991, 1 , 12);
+		LocalDate data5= LocalDate.of(2001, 2 , 12);
 		Avis a1= new Avis();
 		Donatore d1=new Donatore(1,"C", "Peppino",data1,20);
-		Donatore d2=new Donatore(2,"D", "Renzo",data1,13);
-		Donatore d3=new Donatore(3,"A", "Paolo",data1,2);
-		Donatore d4=new Donatore(4,"B", "Marco",data1,8);
-		Donatore d5=new Donatore(5,"E", "Carlo",data1,11);
+		Donatore d2=new Donatore(2,"D", "Renzo",data5,13);
+		Donatore d3=new Donatore(3,"A", "Paolo",data3,2);
+		Donatore d4=new Donatore(4,"B", "Marco",data2,8);
+		Donatore d5=new Donatore(5,"E", "Carlo",data4,11);
 		a1.push(d1);
 		a1.push(d2);
 		a1.push(d5);
@@ -96,6 +103,9 @@ public class MainClass {
 			a1.stampaAvis();
 			System.out.println("\n");
 			a1.visualizzaDonazioniSuperioriA(10);
+			System.out.println("\n");
+			a1.visualizzaPerAnzianità();
+			a1.stampaAvis();
 		}
 		catch (AvisEccexption | IOException e1) 
 		{
@@ -113,6 +123,21 @@ public class MainClass {
 			e.printStackTrace();
 		}
 		System.out.println(a1.toString());
+		
+		FileOutputStream db;
+		try 
+		{
+			db = new FileOutputStream("dataBase.bin");
+			ObjectOutputStream writerSerial=new ObjectOutputStream(db);
+			a1.serializza(writerSerial);
+			db.close();
+		} 
+		catch (IOException | AvisEccexption e) 
+		{
+			System.out.println("errore col file di dataBase");
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

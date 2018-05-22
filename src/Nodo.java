@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * 
  * @author Chiappini Luca
@@ -6,7 +8,7 @@
  * @param info contiene il reference ad un oggetto che contiene le informazioni sugli elementi della lista(in questo caso a un donatore)
  * @param Link reference all elemento successivo della lista (quindi al nodo successivo)
  */
-public class Nodo 
+public class Nodo implements Serializable
 {
 	private Donatore info;
 	private Nodo link;

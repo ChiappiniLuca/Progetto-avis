@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
  * @param donazioniEffettuate acquisisce il numer odi donazioni effettuate del donatore
  *
  */
-public class Donatore 
+public class Donatore implements Serializable
 {
 	private int numeroDiTessera;
 	private String cognome;
@@ -95,9 +96,8 @@ public class Donatore
 	}
 	
 	/**
-	 * 
 	 * serve per restituire i dati del donatore in una Stringa
-	 * 
+	 * @return String
 	 */
 	
 	public String toString()
